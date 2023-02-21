@@ -6,6 +6,7 @@ import { addBooking } from '../../redux/booking/actionCreators';
 const InputBooking = () => {
     // integration of react-redux hooks here
     const bookingCount = useSelector(state => state.length);
+    const newBookingId = useSelector(state => state.length === 0 ? 1 : state[state.length - 1]?.id + 1);
     const dispatch = useDispatch();
 
     // this function is submitting the booking form
@@ -15,13 +16,15 @@ const InputBooking = () => {
         // checking and disabling bookings here
         if (bookingCount + 1 !== 4) {
             const data = {
-                id: bookingCount + 1,
+                id: newBookingId,
                 from: e.target.from.value,
                 to: e.target.to.value,
                 date: e.target.date.value,
                 totalGuests: e.target.guests.value,
                 ticketClass: e.target.ticketClass.value,
             }
+
+            console.log(data);
 
             if (data.from === data.to) {
                 toast.error('Please select different destinations.');
