@@ -1,6 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteBooking } from '../../redux/booking/actionCreators';
 
 const PreviewBookingRow = ({ booking }) => {
+    // integration of react-redux hooks here
+    const dispatch = useDispatch();
+
+    // this function is handling the booking delete functionality
+    const deleteBookingHandler = (id) => {
+        dispatch(deleteBooking(id));
+    }
 
     // rendering booking preview table row here
     return (
@@ -24,7 +33,7 @@ const PreviewBookingRow = ({ booking }) => {
             </td>
             <td className='px-6 py-4 text-center'>
                 <div className='flex justify-center gap-4'>
-                    <button className='lws-remove'>
+                    <button onClick={() => deleteBookingHandler(booking.id)} className='lws-remove'>
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5'
                             stroke='currentColor' className='w-6 h-6'>
                             <path strokeLinecap='round' strokeLinejoin='round'

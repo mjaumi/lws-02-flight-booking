@@ -9,9 +9,9 @@ export const addBooking = (data) => {
     }
 }
 
-export const deleteBooking = (data) => {
+export const deleteBooking = (id) => {
     return {
         type: DELETE,
-        payload: data,
+        payload: id,
     }
 }
