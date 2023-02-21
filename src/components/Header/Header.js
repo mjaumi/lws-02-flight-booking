@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Header = () => {
+    // rendering the header component here
     return (
         <header id='header'>
             <div className='container'>

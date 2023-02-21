@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.Toastify__toast-container {
+  width: 450px !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

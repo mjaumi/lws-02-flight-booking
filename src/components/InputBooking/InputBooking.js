@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { addBooking } from '../../redux/booking/actionCreators';
 
 const InputBooking = () => {
@@ -11,17 +12,26 @@ const InputBooking = () => {
     const submitBooking = (e) => {
         e.preventDefault();
 
-        const data = {
-            id: bookingCount + 1,
-            from: e.target.from.value,
-            to: e.target.to.value,
-            date: e.target.date.value,
-            totalGuests: e.target.guests.value,
-            ticketClass: e.target.ticketClass.value,
-        }
+        // checking and disabling bookings here
+        if (bookingCount + 1 !== 4) {
+            const data = {
+                id: bookingCount + 1,
+                from: e.target.from.value,
+                to: e.target.to.value,
+                date: e.target.date.value,
+                totalGuests: e.target.guests.value,
+                ticketClass: e.target.ticketClass.value,
+            }
 
-        // storing data to redux store here
-        dispatch(addBooking(data));
+            if (data.from === data.to) {
+                toast.error('Please select different destinations.');
+            } else {
+                // storing data to redux store here
+                dispatch(addBooking(data));
+            }
+        } else {
+            toast.error('Sorry! You can not add more than 3 bookings.');
+        }
 
         e.target.reset();
     }
@@ -63,7 +73,7 @@ const InputBooking = () => {
 
                     <div className='des-from'>
                         <p>Journey Date</p>
-                        <input type='date' className='outline-none px-2 py-2 w-full date' name='date' id='lws-date' required />
+                        <input type='date' className='outline-none px-2 py-2 w-full date' name='date' id='lws-date' min={new Date().toISOString().split('T')[0]} required />
                     </div>
 
                     <div className='des-from'>
