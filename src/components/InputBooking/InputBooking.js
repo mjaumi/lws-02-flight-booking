@@ -1,10 +1,37 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBooking } from '../../redux/booking/actionCreators';
 
 const InputBooking = () => {
+    // integration of react-redux hooks here
+    const bookingCount = useSelector(state => state.length);
+    const dispatch = useDispatch();
+
+    // this function is submitting the booking form
+    const submitBooking = (e) => {
+        e.preventDefault();
+
+        const data = {
+            id: bookingCount + 1,
+            from: e.target.from.value,
+            to: e.target.to.value,
+            date: e.target.date.value,
+            totalGuests: e.target.guests.value,
+            ticketClass: e.target.ticketClass.value,
+        }
+
+        // storing data to redux store here
+        dispatch(addBooking(data));
+
+        e.target.reset();
+    }
+
+
+    // rendering the booking input form here
     return (
         <div className='mt-[160px] mx-4 md:mt-[160px] relative'>
             <div className='bg-white rounded-md max-w-6xl w-full mx-auto'>
-                <form className='first-hero lws-inputform'>
+                <form onSubmit={submitBooking} className='first-hero lws-inputform'>
 
                     <div className='des-from'>
                         <p>Destination From</p>
@@ -66,8 +93,8 @@ const InputBooking = () => {
                     </div>
 
                     <button className='addCity' type='submit' id='lws-addCity'>
-                        <svg width='15px' height='15px' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor'>
-                            <path stroke-linecap='round' stroke-linejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
+                        <svg width='15px' height='15px' fill='none' viewBox='0 0 24 24' strokeWidth='2' stroke='currentColor'>
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
                         </svg>
                         <span className='text-sm'>Book</span>
                     </button>

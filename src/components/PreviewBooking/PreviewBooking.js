@@ -1,7 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PreviewBookingRow from '../PreviewBookingRow/PreviewBookingRow';
 
 const PreviewBooking = () => {
+    // integration of react-redux hooks here
+    const bookings = useSelector(state => state);
+
+    // rendering the booking preview table here
     return (
         <div className='table-container'>
             <table className='booking-table'>
@@ -16,8 +21,12 @@ const PreviewBooking = () => {
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-300/20' id='lws-previewBooked'>
-
-                    <PreviewBookingRow />
+                    {
+                        bookings.map(booking => <PreviewBookingRow
+                            key={booking.id}
+                            booking={booking}
+                        />)
+                    }
                 </tbody>
             </table>
         </div>
