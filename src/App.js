@@ -1,5 +1,5 @@
-import './styles.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './styles.css';
 import './App.css';
 import Header from './components/Header/Header';
 import InputData from './components/InputBooking/InputBooking';
